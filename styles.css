@@ -56,13 +56,13 @@ body{
 .overlay{
   position:fixed;
   inset:0;
-
+/*
   background:linear-gradient(
     180deg,
     rgba(255,75,31,.35),
     rgba(0,0,0,.9)
   );
-
+*/
   z-index:-2;
 }
 
