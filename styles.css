@@ -1,3 +1,11 @@
+@font-face{
+  font-family: "PeppersFont";
+  src: url("font/PeppersFont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root{
   --orange:#ff4b1f;
 }
@@ -11,7 +19,7 @@
 /* BODY */
 
 body{
-  font-family:'EB Garamond', serif;
+  font-family:'PeppersFont', serif;
   background:black;
   color:white;
 
@@ -94,27 +102,83 @@ body{
 /* BOTÓN */
 
 .contact-btn{
-  margin-top:-3vh;
+  margin-top:-2.5vh;
 
-  padding:1rem 3rem;
+  padding:1rem 3.2rem;
 
-  background:linear-gradient(135deg,#ff4b1f,#ff7a52);
+  background:
+    linear-gradient(
+      135deg,
+      #ff4b1f 0%,
+      #ff6a3d 50%,
+      #ff4b1f 100%
+    );
 
-  color:black;
+  color:#0b0b0b;
   text-decoration:none;
 
   font-weight:700;
-  letter-spacing:.15em;
+  letter-spacing:.22em;
+  text-transform:uppercase;
 
-  border-radius:50px;
+  border-radius:60px;
 
-  box-shadow:0 12px 30px rgba(255,75,31,.5);
+  border:1px solid rgba(255,255,255,.25);
 
-  transition:.3s;
+  box-shadow:
+    0 10px 25px rgba(255,75,31,.45),
+    inset 0 0 0 rgba(255,255,255,0);
+
+  backdrop-filter:blur(4px);
+
+  position:relative;
+  overflow:hidden;
+
+  transition:all .35s cubic-bezier(.4,0,.2,1);
 }
 
+/* BRILLO DESLIZANTE */
+
+.contact-btn::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    linear-gradient(
+      120deg,
+      transparent 20%,
+      rgba(255,255,255,.45) 50%,
+      transparent 80%
+    );
+
+  transform:translateX(-120%);
+  transition:.6s;
+}
+
+.contact-btn:hover::before{
+  transform:translateX(120%);
+}
+
+/* HOVER */
+
 .contact-btn:hover{
-  transform:scale(1.05);
+  transform:translateY(-3px) scale(1.04);
+
+  box-shadow:
+    0 20px 45px rgba(255,75,31,.75),
+    inset 0 0 12px rgba(255,255,255,.25);
+
+  letter-spacing:.26em;
+}
+
+/* CLICK */
+
+.contact-btn:active{
+  transform:translateY(0) scale(.97);
+
+  box-shadow:
+    0 8px 18px rgba(255,75,31,.4);
 }
 
 /* REDES */
