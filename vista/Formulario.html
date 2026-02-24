@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>PEPPERS — Coming Soon</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+
+<body>
+
+    <video class="bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
+        <source src="/video/Video.mp4" type="video/mp4">
+    </video>
+
+
+    <!-- OVERLAY -->
+    <div class="overlay"></div>
+
+    <!-- MAIN -->
+    <main class="container">
+
+        <div class="form-zone">
+
+            <form id="contact-form" class="contact-form">
+
+                <input type="email" name="email" placeholder="Tu correo" required>
+
+                <textarea name="message" placeholder="Tu mensaje" required></textarea>
+
+                <button type="submit" class="contact-btn">
+                    Enviar mensaje
+                </button>
+
+                <p class="form-status"></p>
+
+            </form>
+        </div>
+
+        <div class="mid-zone">
+            <a href="/vista/index.html" class="contact-btn back-btn">
+                Volver a la Página Anterior
+            </a>
+        </div>
+
+        <div class="bottom-zone">
+            <div class="social-carousel">
+                <a href="https://www.linkedin.com/company/pepperscollective" class="social-item"><i
+                        class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/peppers.collective" class="social-item"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@peppers.collective" class="social-item"><i
+                        class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+
+    </main>
+    <script src="/script.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+    <script>
+        (function () {
+            emailjs.init("TU_PUBLIC_KEY");
+        })();
+    </script>
+
+</body>
+
+</html>

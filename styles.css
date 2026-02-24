@@ -194,6 +194,196 @@ body{
   background:var(--orange);
 }
 
+/* PAGE TRANSITIONS */
+
+body{
+  transition: opacity .5s ease, transform .5s ease;
+}
+
+body.page-exit{
+  opacity:0;
+  transform:translateX(-60px);
+}
+
+body.page-enter{
+  opacity:0;
+  transform:translateX(60px);
+}
+
+
+/* REVERSE */
+
+body.page-exit-right{
+  opacity:0;
+  transform:translateX(60px);
+}
+
+body.page-enter-left{
+  opacity:0;
+  transform:translateX(-60px);
+}
+
+/* CONTACT FORM - RESPONSIVE PRO */
+/* FORM ZONE (ONLY FORM PAGE) */
+
+.form-zone{
+  margin-top: 5vh;
+  width:100%;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  padding:3rem 1.5rem;
+}
+
+.contact-form{
+  width:100%;
+  max-width:700px;
+
+  min-height:420px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  gap:1.6rem;
+
+  background:rgba(0,0,0,.55);
+  padding:2.5rem 2.2rem;
+
+  border-radius:28px;
+
+  backdrop-filter:blur(14px);
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.7);
+
+  margin:0 auto;
+}
+
+
+/* INPUTS */
+
+.contact-form input,
+.contact-form textarea{
+
+  width:100%;
+
+  background:rgba(255,255,255,.07);
+  border:1px solid rgba(255,255,255,.35);
+
+  font-family:'Bebas Neue Rounded', sans-serif;
+  color:white;
+
+  padding:1rem 1.2rem;
+
+  border-radius:14px;
+
+  font-size:1rem;
+
+  outline:none;
+
+  transition:.25s;
+}
+
+
+/* TEXTAREA */
+
+.contact-form textarea{
+  min-height:170px;
+  resize:none;
+}
+
+
+/* FOCUS EFFECT */
+
+.contact-form input:focus,
+.contact-form textarea:focus{
+
+  border-color:var(--orange);
+
+  background:rgba(255,255,255,.1);
+  font-family:'Bebas Neue Rounded', sans-serif;
+  box-shadow:
+    0 0 0 3px rgba(255,75,31,.15);
+}
+
+
+/* BUTTON */
+
+.contact-form button{
+
+  margin-top:1.6rem;
+
+  padding:1rem 0;
+
+  width:100%;
+
+  background:transparent;
+
+  color:white;
+
+  border:2px solid rgba(255,255,255,.8);
+
+  border-radius:50px;
+
+  font-size:.9rem;
+
+  letter-spacing:.25em;
+
+  text-transform:uppercase;
+
+  cursor:pointer;
+
+  transition:.3s;
+}
+
+
+/* BUTTON HOVER */
+
+.contact-form button:hover{
+
+  background:var(--orange);
+  color:black;
+
+  border-color:transparent;
+
+  box-shadow:
+    0 12px 30px rgba(255,75,31,.5);
+}
+
+
+/* STATUS */
+
+.form-status{
+  text-align:center;
+  font-size:.85rem;
+  min-height:1.4em;
+}
+
+
+/* MOBILE */
+
+@media(max-width:600px){
+
+  .contact-form{
+
+    max-width:92vw;
+
+    min-height:auto;
+
+    padding:2rem 1.6rem;
+
+    gap:1.4rem;
+  }
+
+  .contact-form textarea{
+    min-height:140px;
+  }
+
+}
+
 /* MOBILE */
 
 @media(max-width:900px){
