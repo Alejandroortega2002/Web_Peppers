@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Peppers Collective: Próximamente. Construyendo experiencias y estrategias digitales únicas.">
+  <meta name="theme-color" content="#ff4b1f">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="PEPPERS — Coming Soon">
+  <meta property="og:description" content="Próximamente. Construyendo experiencias digitales únicas.">
+  <meta property="og:type" content="website">
 
   <title>PEPPERS — Coming Soon</title>
 
@@ -10,21 +19,28 @@
   <link rel="stylesheet" href="styles.css">
 
   <!-- ICONOS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <script>
+    // Comprobamos la sesión inmediatamente para evitar cualquier parpadeo (FOUC)
+    if (sessionStorage.getItem('preloaderShown')) {
+      document.documentElement.classList.add('skip-preloader');
+    }
+  </script>
 </head>
+
 <body>
 
-<video
-  class="bg-video"
-  autoplay
-  muted
-  loop
-  playsinline
-  webkit-playsinline
-  preload="auto"
->
-  <source src="video/video.mp4" type="video/mp4">
-</video>
+  <!-- PRELOADER -->
+  <div id="preloader" class="preloader">
+    <video class="preloader-video" autoplay muted loop playsinline webkit-playsinline>
+      <source src="video/video2.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <video class="bg-video" id="main-bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
+    <source src="video/video.mp4" type="video/mp4">
+  </video>
 
 
   <!-- OVERLAY -->
@@ -38,22 +54,24 @@
     </div>
 
     <div class="mid-zone">
-      <a
-        href="Formulario.html"
-        class="contact-btn">
+      <a href="Formulario.html" class="contact-btn" aria-label="Ir al formulario de contacto">
         CONTÁCTANOS
       </a>
     </div>
 
     <div class="bottom-zone">
       <div class="social-carousel">
-        <a href="https://www.linkedin.com/company/pepperscollective" class="social-item"><i class="fab fa-linkedin-in"></i></a>
-        <a href="https://www.instagram.com/peppers.collective" class="social-item"><i class="fab fa-instagram"></i></a>
-        <a href="https://www.tiktok.com/@peppers.collective" class="social-item"><i class="fab fa-tiktok"></i></a>
+        <a href="https://www.linkedin.com/company/pepperscollective" class="social-item"
+          aria-label="LinkedIn de Peppers"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://www.instagram.com/peppers.collective" class="social-item" aria-label="Instagram de Peppers"><i
+            class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@peppers.collective" class="social-item" aria-label="TikTok de Peppers"><i
+            class="fab fa-tiktok"></i></a>
       </div>
     </div>
 
   </main>
   <script src="script.js"></script>
 </body>
+
 </html>

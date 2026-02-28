@@ -1,426 +1,524 @@
-@font-face{
-  font-family:"PeppersFont";
-  src:url("font/PeppersFont.ttf") format("truetype");
-  font-weight:normal;
-  font-style:normal;
-  font-display:swap;
+@font-face {
+  font-family: "PeppersFont";
+  src: url("font/PeppersFont.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
-:root{
-  --orange:#ff4b1f;
+:root {
+  --orange: #ff4b1f;
 }
 
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* BODY */
 
-body{
-  font-family:'PeppersFont', serif;
-  background:black;
-  color:white;
+body {
+  font-family: 'PeppersFont', serif;
+  background: black;
+  color: white;
 
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 
-  overflow:hidden;
+  overflow: hidden;
+}
+
+/* PRELOADER */
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+/* Ocultar preloader directamente si la clase skip-preloader está en el html */
+.skip-preloader .preloader {
+  display: none !important;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* VIDEO */
 
-.bg-video{
-  position:fixed;
-  top:50%;
-  left:50%;
+.bg-video {
+  position: fixed;
+  top: 50%;
+  left: 50%;
 
-  min-width:100%;
-  min-height:100%;
+  min-width: 100%;
+  min-height: 100%;
 
-  width:auto;
-  height:auto;
+  width: auto;
+  height: auto;
 
-  transform:translate(-50%,-50%);
+  transform: translate(-50%, -50%);
 
-  object-fit:cover;
+  object-fit: cover;
 
-  z-index:-3;
+  z-index: -3;
 
-  will-change:opacity;
+  will-change: opacity;
 }
 
 /* OVERLAY */
 
-.overlay{
-  position:fixed;
-  inset:0;
+.overlay {
+  position: fixed;
+  inset: 0;
 
-  background:linear-gradient(
-    180deg,
-    rgba(0,0,0,.25),
-    rgba(0,0,0,.9)
-  );
+  background: linear-gradient(180deg,
+      rgba(0, 0, 0, .25),
+      rgba(0, 0, 0, .9));
 
-  z-index:-2;
+  z-index: -2;
 }
 
 /* MAIN */
 
-.container{
-  width:100%;
-  min-height:100vh;
+.container {
+  width: 100%;
+  min-height: 100vh;
 
-  display:flex;
-  flex-direction:column;
+  display: flex;
+  flex-direction: column;
 
-  justify-content:center;
-  align-items:center;
+  justify-content: center;
+  align-items: center;
 
-  text-align:center;
+  text-align: center;
 
-  position:relative;
-  z-index:2;
+  position: relative;
+  z-index: 2;
 
-  transform:translateZ(0);
-  backface-visibility:hidden;
-  will-change:transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* WIP */
 
-.wip{
-  width:95vw;
-  max-width:1300px;
+.wip {
+  width: 95vw;
+  max-width: 1300px;
 
-  height:70vh;
+  height: 70vh;
 
-  object-fit:contain;
+  object-fit: contain;
 
-  display:block;
+  display: block;
 
-  filter:drop-shadow(0 40px 80px rgba(0,0,0,.9));
+  filter: drop-shadow(0 40px 80px rgba(0, 0, 0, .9));
 
-  transform:translateZ(0);
+  transform: translateZ(0);
 }
 
 /* BOTÓN */
 
-.contact-btn{
-  margin-top:-2vh;
+.contact-btn {
+  margin-top: -2vh;
 
-  padding:.7rem 2.4rem;
+  padding: .7rem 2.4rem;
 
-  background:rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
 
-  color:white;
-  text-decoration:none;
+  color: white;
+  text-decoration: none;
 
-  font-family:'Bebas Neue Rounded', sans-serif;
+  font-family: 'Bebas Neue Rounded', sans-serif;
 
-  font-size:.85rem;
-  letter-spacing:.32em;
+  font-size: .85rem;
+  letter-spacing: .32em;
 
-  text-transform:uppercase;
+  text-transform: uppercase;
 
-  border:1px solid rgba(255,255,255,.7);
-  border-radius:40px;
+  border: 1px solid rgba(255, 255, 255, .7);
+  border-radius: 40px;
 
-  backdrop-filter:blur(6px);
+  backdrop-filter: blur(6px);
 
-  transition:all .35s ease;
+  transition: all .35s ease;
 
-  position:relative;
+  position: relative;
 
-  transform:translateZ(0);
+  transform: translateZ(0);
 }
 
 /* Hover */
 
-.contact-btn:hover{
-  background:rgba(255,75,31,.9);
-  color:black;
+.contact-btn:hover {
+  background: rgba(255, 75, 31, .9);
+  color: black;
 
-  border-color:transparent;
+  border-color: transparent;
 
   box-shadow:
-    0 10px 25px rgba(255,75,31,.45),
-    0 0 0 4px rgba(255,75,31,.12);
+    0 10px 25px rgba(255, 75, 31, .45),
+    0 0 0 4px rgba(255, 75, 31, .12);
 }
 
 /* Click */
 
-.contact-btn:active{
-  transform:scale(.97);
+.contact-btn:active {
+  transform: scale(.97);
 }
 
 /* REDES */
 
-.social-carousel{
-  position:fixed;
-  top:18px;
-  right:18px;
+.social-carousel {
+  position: fixed;
+  top: 18px;
+  right: 18px;
 
-  display:flex;
-  gap:.7rem;
+  display: flex;
+  gap: .7rem;
 
-  z-index:5;
+  z-index: 5;
 }
 
-.social-item{
-  width:40px;
-  height:40px;
+.social-item {
+  width: 42px;
+  height: 42px;
 
-  background:white;
-  color:black;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
 
-  border-radius:50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  border-radius: 50%;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  font-size:1rem;
+  font-size: 1.1rem;
 
-  text-decoration:none;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
-  transition:.3s;
+  transition: all .35s cubic-bezier(0.25, 0.8, 0.25, 1);
 
-  transform:translateZ(0);
+  transform: translateZ(0);
 }
 
-.social-item:hover{
-  background:var(--orange);
+.social-item:hover {
+  background: var(--orange);
+  color: black;
+  border-color: var(--orange);
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 0 8px 15px rgba(255, 75, 31, 0.4);
+}
+
+/* UTILIDADES ACCESIBILIDAD */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* PAGE TRANSITIONS */
 
-body{
+body {
   transition: opacity .5s ease, transform .5s ease;
 }
 
-body.page-exit{
-  opacity:0;
-  transform:translateX(-60px);
+body.page-exit {
+  opacity: 0;
+  transform: translateX(-60px);
 }
 
-body.page-enter{
-  opacity:0;
-  transform:translateX(60px);
+body.page-enter {
+  opacity: 0;
+  transform: translateX(60px);
 }
 
 
 /* REVERSE */
 
-body.page-exit-right{
-  opacity:0;
-  transform:translateX(60px);
+body.page-exit-right {
+  opacity: 0;
+  transform: translateX(60px);
 }
 
-body.page-enter-left{
-  opacity:0;
-  transform:translateX(-60px);
+body.page-enter-left {
+  opacity: 0;
+  transform: translateX(-60px);
 }
 
 /* CONTACT FORM - RESPONSIVE PRO */
 /* FORM ZONE (ONLY FORM PAGE) */
 
-.form-zone{
+.form-zone {
   margin-top: 5vh;
-  width:100%;
+  width: 100%;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  padding:3rem 1.5rem;
+  padding: 3rem 1.5rem;
 }
 
-.contact-form{
-  width:100%;
-  max-width:700px;
+.contact-form {
+  width: 100%;
+  max-width: 700px;
 
-  min-height:420px;
+  min-height: 420px;
 
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-  gap:1.6rem;
+  gap: 1.6rem;
 
-  background:rgba(0,0,0,.55);
-  padding:2.5rem 2.2rem;
+  background: rgba(0, 0, 0, .55);
+  padding: 2.5rem 2.2rem;
 
-  border-radius:28px;
+  border-radius: 28px;
 
-  backdrop-filter:blur(14px);
+  backdrop-filter: blur(14px);
 
   box-shadow:
-    0 20px 60px rgba(0,0,0,.7);
+    0 20px 60px rgba(0, 0, 0, .7);
 
-  margin:0 auto;
+  margin: 0 auto;
 }
 
 
-/* INPUTS Dos*/
+/* FORMULARIOS ESTILOS PRO */
+
+.input-group {
+  position: relative;
+  width: 100%;
+}
+
+.error-msg {
+  display: none;
+  color: #ff4b1f;
+  font-size: 0.85rem;
+  font-family: 'Bebas Neue Rounded', sans-serif;
+  margin-top: 5px;
+  letter-spacing: 0.5px;
+  text-align: left;
+  padding-left: 10px;
+}
 
 .contact-form input,
-.contact-form textarea{
+.contact-form textarea {
 
-  width:100%;
+  width: 100%;
 
-  background:rgba(255,255,255,.07);
-  border:1px solid rgba(255,255,255,.35);
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .35);
 
-  font-family:'Bebas Neue Rounded', sans-serif;
-  color:white;
+  font-family: 'Bebas Neue Rounded', sans-serif;
+  color: white;
 
-  padding:1rem 1.2rem;
+  padding: 1rem 1.2rem;
 
-  border-radius:14px;
+  border-radius: 14px;
 
-  font-size:1rem;
+  font-size: 1rem;
 
-  outline:none;
+  outline: none;
 
-  transition:.25s;
+  transition: all .3s ease;
 }
 
 
 /* TEXTAREA */
 
-.contact-form textarea{
-  min-height:170px;
-  resize:none;
+.contact-form textarea {
+  min-height: 170px;
+  resize: none;
 }
 
 
 /* FOCUS EFFECT */
 
 .contact-form input:focus,
-.contact-form textarea:focus{
+.contact-form textarea:focus {
 
-  border-color:var(--orange);
+  border-color: var(--orange);
 
-  background:rgba(255,255,255,.1);
-  font-family:'Bebas Neue Rounded', sans-serif;
+  background: rgba(255, 255, 255, .12);
+  font-family: 'Bebas Neue Rounded', sans-serif;
   box-shadow:
-    0 0 0 3px rgba(255,75,31,.15);
+    0 0 0 4px rgba(255, 75, 31, .2);
+}
+
+/* ERROR STATE */
+.contact-form.submitted .input-group input:invalid,
+.contact-form.submitted .input-group textarea:invalid {
+  border-color: #ff4b1f;
+  background: rgba(255, 75, 31, 0.05);
+}
+
+.contact-form.submitted .input-group input:invalid~.error-msg,
+.contact-form.submitted .input-group textarea:invalid~.error-msg {
+  display: block;
+  animation: fadeInError 0.3s ease;
+}
+
+@keyframes fadeInError {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 
 /* BUTTON */
 
-.contact-form button{
+.contact-form button {
 
-  margin-top:1.6rem;
+  margin-top: 1.6rem;
 
-  padding:1rem 0;
+  padding: 1rem 0;
 
-  width:100%;
+  width: 100%;
 
-  background:transparent;
+  background: transparent;
 
-  color:white;
+  color: white;
 
-  border:2px solid rgba(255,255,255,.8);
+  border: 2px solid rgba(255, 255, 255, .8);
 
-  border-radius:50px;
+  border-radius: 50px;
 
-  font-size:.9rem;
+  font-size: .9rem;
 
-  letter-spacing:.25em;
+  letter-spacing: .25em;
 
-  text-transform:uppercase;
+  text-transform: uppercase;
 
-  cursor:pointer;
+  cursor: pointer;
 
-  transition:.3s;
+  transition: .3s;
 }
 
 
 /* BUTTON HOVER */
 
-.contact-form button:hover{
+.contact-form button:hover {
 
-  background:var(--orange);
-  color:black;
+  background: var(--orange);
+  color: black;
 
-  border-color:transparent;
+  border-color: transparent;
 
   box-shadow:
-    0 12px 30px rgba(255,75,31,.5);
+    0 12px 30px rgba(255, 75, 31, .5);
 }
 
 
 /* STATUS */
 
-.form-status{
-  text-align:center;
-  font-size:.85rem;
-  min-height:1.4em;
+.form-status {
+  text-align: center;
+  font-size: 1rem;
+  font-family: 'Bebas Neue Rounded', sans-serif;
+  min-height: 1.6em;
+  transition: opacity 0.3s;
+  letter-spacing: 0.5px;
+}
+
+.status-success {
+  color: #4cd137;
+}
+
+.status-error {
+  color: #e84118;
 }
 
 
 /* MOBILE */
 
-@media(max-width:600px){
+@media(max-width:600px) {
 
-  .contact-form{
+  .contact-form {
 
-    max-width:92vw;
+    max-width: 92vw;
 
-    min-height:auto;
+    min-height: auto;
 
-    padding:2rem 1.6rem;
+    padding: 2rem 1.6rem;
 
-    gap:1.4rem;
+    gap: 1.4rem;
   }
 
-  .contact-form textarea{
-    min-height:140px;
+  .contact-form textarea {
+    min-height: 140px;
   }
 
 }
 
 /* MOBILE */
 
-@media(max-width:900px){
+@media(max-width:900px) {
 
-  .bg-video{
-    position:absolute;
+  .bg-video {
+    position: absolute;
 
-    top:50%;
-    left:50%;
+    top: 50%;
+    left: 50%;
 
-    width:100%;
-    height:100%;
+    width: 100%;
+    height: 100%;
 
-    transform:translate(-50%,-50%);
+    transform: translate(-50%, -50%);
   }
 
-  .container{
-    min-height:100svh;
+  .container {
+    min-height: 100svh;
   }
 
-  .wip{
-    height:55vh;
+  .wip {
+    height: 55vh;
   }
 
-  .contact-btn{
-    margin-top:-1.5vh;
-    padding:.75rem 2.2rem;
-    font-size:.8rem;
+  .contact-btn {
+    margin-top: -1.5vh;
+    padding: .75rem 2.2rem;
+    font-size: .8rem;
   }
 
-  .social-carousel{
-    top:12px;
-    right:12px;
+  .social-carousel {
+    top: 12px;
+    right: 12px;
   }
 
-  .social-item{
-    width:34px;
-    height:34px;
+  .social-item {
+    width: 34px;
+    height: 34px;
   }
 }

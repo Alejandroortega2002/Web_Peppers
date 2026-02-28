@@ -4,7 +4,7 @@ const container = document.querySelector('.container');
 
 document.addEventListener('mousemove', e => {
 
-  if(!container) return;
+  if (!container) return;
 
   const x = (e.clientX / window.innerWidth - 0.5) * 8;
   const y = (e.clientY / window.innerHeight - 0.5) * 8;
@@ -19,13 +19,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const body = document.body;
 
+  /* ==========================
+     PRELOADER
+  =========================== */
+  const preloader = document.getElementById('preloader');
+  const mainVideo = document.getElementById('main-bg-video');
+
+  // Si la clase skip-preloader está presente, el preloader se habrá ocultado por CSS instantáneamente
+  // por lo que salimos de la lógica y no hacemos nada más.
+  if (!document.documentElement.classList.contains('skip-preloader')) {
+
+    // Ocultar preloader cuando el video de fondo puede reproducirse o tras un tiempo de seguridad.
+    const hidePreloader = () => {
+      if (preloader) {
+        preloader.classList.add('fade-out');
+        setTimeout(() => {
+          preloader.style.display = 'none';
+          // Guardamos en sesión que ya lo ha visto
+          sessionStorage.setItem('preloaderShown', 'true');
+        }, 800); // 800ms fadeOut CSS transition
+      }
+    };
+
+    // Esperar 5 segundos fijos para dar tiempo a la carga de la página
+    setTimeout(hidePreloader, 5000);
+  }
 
   /* ==========================
      ANIMACIÓN DE ENTRADA
   =========================== */
 
   // Si viene de "volver"
-  if(sessionStorage.getItem('backTransition')){
+  if (sessionStorage.getItem('backTransition')) {
 
     body.classList.add('page-enter-left');
     sessionStorage.removeItem('backTransition');
@@ -38,7 +63,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   requestAnimationFrame(() => {
-    body.classList.remove('page-enter','page-enter-left');
+    body.classList.remove('page-enter', 'page-enter-left');
   });
 
 
@@ -50,24 +75,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const url = link.getAttribute('href');
 
-    if(!url) return;
+    if (!url) return;
 
 
     /* ----- BOTÓN VOLVER ----- */
 
-    if(link.classList.contains('back-btn')){
+    if (link.classList.contains('back-btn')) {
 
       link.addEventListener('click', e => {
 
         e.preventDefault();
 
-        sessionStorage.setItem('backTransition','true');
+        sessionStorage.setItem('backTransition', 'true');
 
         body.classList.add('page-exit-right');
 
         setTimeout(() => {
           window.location.href = url;
-        }, 150);
+        }, 100);
 
       });
 
@@ -77,10 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /* ----- LINKS NORMALES ----- */
 
-    if(
+    if (
       !url.startsWith('http') &&
       !url.startsWith('mailto:')
-    ){
+    ) {
 
       link.addEventListener('click', e => {
 
@@ -90,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
           window.location.href = url;
-        }, 150);
+        }, 100);
 
       });
 
@@ -105,32 +130,65 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const form = document.getElementById('contact-form');
 
-if(form){
+if (form) {
 
-  form.addEventListener('submit', function(e){
+  form.addEventListener('submit', function (e) {
 
     e.preventDefault();
 
+    // Validar visualmente primero marcando la clase form
+    form.classList.add('submitted');
+
+    // Validación HTML5 del browser
+    if (!form.checkValidity()) {
+      return; // Detiene la acción porque hay errores de HTML5
+    }
+
+    // Comprobación de Honeypot Anti-spam
+    const honey = document.getElementById('honey').value;
+    if (honey !== "") {
+      console.warn("Spam detectado y bloqueado.");
+      return;
+    }
+
     const status = document.querySelector('.form-status');
+    const submitBtn = document.getElementById('submit-btn');
 
     status.textContent = "Enviando...";
+    status.className = "form-status"; // Reset status classes
+
+    // Deshabilitar botón para envíos dobles
+    submitBtn.disabled = true;
+    submitBtn.style.opacity = "0.6";
+    submitBtn.style.cursor = "not-allowed";
 
     emailjs.sendForm(
       "TU_SERVICE_ID",
       "TU_TEMPLATE_ID",
       this
     )
-    .then(() => {
+      .then(() => {
 
-      status.textContent = "Mensaje enviado ✅";
-      form.reset();
+        status.textContent = "Mensaje enviado con éxito ✅";
+        status.classList.add("status-success");
 
-    })
-    .catch(() => {
+        form.reset();
+        form.classList.remove('submitted');
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
 
-      status.textContent = "Error al enviar ❌";
+      })
+      .catch(() => {
 
-    });
+        status.textContent = "Error al enviar el mensaje. Inténtalo más tarde ❌";
+        status.classList.add("status-error");
+
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+
+      });
 
   });
 

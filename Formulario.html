@@ -4,19 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Formulario de contacto de Peppers Collective.">
+    <meta name="theme-color" content="#ff4b1f">
 
-    <title>PEPPERS — Coming Soon</title>
+    <title>Contacto — PEPPERS</title>
 
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 
     <!-- ICONOS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <script>
+        // Comprobamos la sesión inmediatamente para evitar cualquier parpadeo (FOUC)
+        if (sessionStorage.getItem('preloaderShown')) {
+            document.documentElement.classList.add('skip-preloader');
+        }
+    </script>
 </head>
 
 <body>
 
-    <video class="bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
+    <!-- PRELOADER -->
+    <div id="preloader" class="preloader">
+        <video class="preloader-video" autoplay muted loop playsinline webkit-playsinline>
+            <source src="video/video2.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <video class="bg-video" id="main-bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
         <source src="video/video.mp4" type="video/mp4">
     </video>
 
@@ -29,34 +45,46 @@
 
         <div class="form-zone">
 
-            <form id="contact-form" class="contact-form">
+            <form id="contact-form" class="contact-form" novalidate>
+                <!-- Honeypot oculto para bots anti-spam -->
+                <input type="text" name="_honey" id="honey" style="display:none" tabindex="-1" autocomplete="off">
 
-                <input type="email" name="email" placeholder="Tu correo" required>
+                <div class="input-group">
+                    <label for="email" class="sr-only">Tu correo electrónico</label>
+                    <input type="email" id="email" name="email" placeholder="Tu correo"
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                    <span class="error-msg">Por favor, introduce un correo válido.</span>
+                </div>
 
-                <textarea name="message" placeholder="Tu mensaje" required></textarea>
+                <div class="input-group">
+                    <label for="message" class="sr-only">Tu mensaje</label>
+                    <textarea id="message" name="message" placeholder="Tu mensaje" minlength="10" maxlength="500"
+                        required></textarea>
+                    <span class="error-msg">El mensaje debe tener entre 10 y 500 caracteres.</span>
+                </div>
 
-                <button type="submit" class="contact-btn">
+                <button type="submit" id="submit-btn" class="contact-btn">
                     Enviar mensaje
                 </button>
 
-                <p class="form-status"></p>
+                <p class="form-status" aria-live="polite"></p>
 
             </form>
         </div>
 
         <div class="mid-zone">
-            <a href="index.html" class="contact-btn back-btn">
+            <a href="index.html" class="contact-btn back-btn" aria-label="Volver a la página de inicio">
                 Volver a la Página Anterior
             </a>
         </div>
 
         <div class="bottom-zone">
             <div class="social-carousel">
-                <a href="https://www.linkedin.com/company/pepperscollective" class="social-item"><i
-                        class="fab fa-linkedin-in"></i></a>
-                <a href="https://www.instagram.com/peppers.collective" class="social-item"><i
+                <a href="https://www.linkedin.com/company/pepperscollective" class="social-item"
+                    aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/peppers.collective" class="social-item" aria-label="Instagram"><i
                         class="fab fa-instagram"></i></a>
-                <a href="https://www.tiktok.com/@peppers.collective" class="social-item"><i
+                <a href="https://www.tiktok.com/@peppers.collective" class="social-item" aria-label="TikTok"><i
                         class="fab fa-tiktok"></i></a>
             </div>
         </div>
