@@ -20,16 +20,75 @@ document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
 
   /* ==========================
-     PRELOADER
+     PRELOADER INTERACTIVO (CANVAS)
   =========================== */
   const preloader = document.getElementById('preloader');
-  const mainVideo = document.getElementById('main-bg-video');
+  const canvas = document.getElementById('preloader-canvas');
 
   // Si la clase skip-preloader está presente, el preloader se habrá ocultado por CSS instantáneamente
-  // por lo que salimos de la lógica y no hacemos nada más.
-  if (!document.documentElement.classList.contains('skip-preloader')) {
+  if (!document.documentElement.classList.contains('skip-preloader') && document.getElementById('preloader-canvas')) {
 
-    // Ocultar preloader cuando el video de fondo puede reproducirse o tras un tiempo de seguridad.
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
+    let w, h;
+
+    const resizeReset = () => {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+
+    resizeReset();
+    window.addEventListener('resize', resizeReset);
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * w;
+        this.y = h + Math.random() * 200; // Empiezan por debajo de la pantalla
+        this.size = Math.random() * 3 + 1;
+        this.speedY = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 1.5;
+        // Color Pepper --orange dominante #ff4b1f
+        this.color = `rgba(255, ${Math.floor(Math.random() * 80) + 40}, 31, ${Math.random() * 0.5 + 0.1})`;
+        this.life = true;
+      }
+      update() {
+        this.y -= this.speedY; // Suben
+        this.x += this.speedX;
+        if (this.size > 0.1) this.size -= 0.015; // Se encogen
+        if (this.y < 0 || this.size <= 0.2) {
+          this.life = false;
+        }
+      }
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const animateParticles = () => {
+      ctx.clearRect(0, 0, w, h);
+
+      if (particlesArray.length < 150) {
+        particlesArray.push(new Particle());
+      }
+
+      particlesArray = particlesArray.filter(p => {
+        p.update();
+        p.draw();
+        return p.life;
+      });
+
+      // Continuar animación mientras el preloader sea visible
+      if (!preloader.classList.contains('fade-out')) {
+        requestAnimationFrame(animateParticles);
+      }
+    };
+
+    animateParticles();
+
+    // Ocultar preloader a los 2.8s (y terminar fade out 1s después aprox durando en torno a 3s la exp total)
     const hidePreloader = () => {
       if (preloader) {
         preloader.classList.add('fade-out');
@@ -37,12 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
           preloader.style.display = 'none';
           // Guardamos en sesión que ya lo ha visto
           sessionStorage.setItem('preloaderShown', 'true');
-        }, 800); // 800ms fadeOut CSS transition
+        }, 1000); // 1000ms fadeOut CSS transition
       }
     };
 
-    // Esperar 5 segundos fijos para dar tiempo a la carga de la página
-    setTimeout(hidePreloader, 5000);
+    setTimeout(hidePreloader, 2800);
   }
 
   /* ==========================
@@ -163,9 +221,12 @@ if (form) {
     submitBtn.style.cursor = "not-allowed";
 
     emailjs.sendForm(
-      "TU_SERVICE_ID",
-      "TU_TEMPLATE_ID",
-      this
+      "service_hai08t9",
+      "template_leykc3e",
+      this,
+      {
+        publicKey: "iZZFtl1_SIXVJNqBQ"
+      }
     )
       .then(() => {
 
@@ -179,7 +240,9 @@ if (form) {
         submitBtn.style.cursor = "pointer";
 
       })
-      .catch(() => {
+      .catch((error) => {
+
+        console.error("Error EmailJS:", error);
 
         status.textContent = "Error al enviar el mensaje. Inténtalo más tarde ❌";
         status.classList.add("status-error");

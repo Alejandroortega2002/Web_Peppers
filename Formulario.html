@@ -25,11 +25,15 @@
 
 <body>
 
-    <!-- PRELOADER -->
+    <!-- PRELOADER INTERACTIVO -->
     <div id="preloader" class="preloader">
-        <video class="preloader-video" autoplay muted loop playsinline webkit-playsinline>
-            <source src="video/video2.mp4" type="video/mp4">
-        </video>
+        <canvas id="preloader-canvas"></canvas>
+        <div class="preloader-overlay-content">
+            <img src="img/logo.png" class="preloader-logo-img" alt="PEPPERS Logo">
+            <div class="preloader-bar">
+                <div class="preloader-bar-fill"></div>
+            </div>
+        </div>
     </div>
 
     <video class="bg-video" id="main-bg-video" autoplay muted loop playsinline webkit-playsinline preload="auto">
@@ -51,9 +55,13 @@
 
                 <div class="input-group">
                     <label for="email" class="sr-only">Tu correo electrónico</label>
+
                     <input type="email" id="email" name="email" placeholder="Tu correo"
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
-                    <span class="error-msg">Por favor, introduce un correo válido.</span>
+                        pattern="[A-Za-z0-9._%+\-]+@[A-Za-z0-9.\-]+\.[A-Za-z]{2,}" required>
+
+                    <span class="error-msg">
+                        Por favor, introduce un correo válido.
+                    </span>
                 </div>
 
                 <div class="input-group">
@@ -91,13 +99,7 @@
 
     </main>
     <script src="script.js"></script>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
-
-    <script>
-        (function () {
-            emailjs.init("TU_PUBLIC_KEY");
-        })();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
 </body>
 
