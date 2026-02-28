@@ -635,24 +635,45 @@ body.page-enter-left .bg-video {
     margin-top: 1vh;
     padding: .85rem 2rem;
     font-size: .85rem;
+    z-index: 10;
+    /* Elevar botón de volver sobre form */
   }
 
   .social-carousel {
     top: auto;
-    bottom: 25px;
+    bottom: 15px;
+    /* Más abajo para no montarse */
     right: 50%;
     transform: translateX(50%) translateZ(0);
     /* Centrar en móviles con aceleración GPU */
+    z-index: 10;
   }
 
   .social-item {
-    width: 44px;
-    /* Mayor tamaño para dedos */
-    height: 44px;
+    width: 38px;
+    /* Un pelin más pequeñas para evitar pisotones */
+    height: 38px;
   }
 }
 
 @media(max-width:600px) {
+
+  /* Asegurar que el contenido cabe haciendo scroll si el móvil es bajo */
+  body {
+    overflow-y: auto;
+  }
+
+  .container {
+    padding-top: 2rem;
+    padding-bottom: 5rem;
+    /* Margen para las redes en móviles */
+    justify-content: flex-start;
+    /* Subirlo arriba un poco para que quepa */
+  }
+
+  .form-zone {
+    margin-top: 2vh;
+  }
 
   .contact-form {
     max-width: 92vw;
