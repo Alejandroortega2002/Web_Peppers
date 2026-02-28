@@ -603,87 +603,44 @@ body.page-enter-left .bg-video {
 }
 
 
-/* MOBILE RESPONSIVE PRO */
+/* MOBILE */
 
 @media(max-width:900px) {
 
   .bg-video {
-    position: fixed;
+    position: absolute;
+
     top: 50%;
     left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: cover;
+
+    width: 100%;
+    height: 100%;
+
     transform: translate(-50%, -50%);
-    will-change: opacity, transform;
   }
 
   .container {
     min-height: 100svh;
-    /* Usar svh en móviles (Short Viewport Height) para Safari iOS */
   }
 
   .wip {
-    height: auto;
-    max-height: 55vh;
-    width: 90vw;
+    height: 55vh;
   }
 
   .contact-btn {
-    margin-top: 1vh;
-    padding: .85rem 2rem;
-    font-size: .85rem;
-    z-index: 10;
-    /* Elevar botón de volver sobre form */
+    margin-top: -1.5vh;
+    padding: .75rem 2.2rem;
+    font-size: .8rem;
   }
 
   .social-carousel {
-    top: auto;
-    bottom: 15px;
-    /* Más abajo para no montarse */
-    right: 50%;
-    transform: translateX(50%) translateZ(0);
-    /* Centrar en móviles con aceleración GPU */
-    z-index: 10;
+    top: 12px;
+    right: 12px;
   }
 
   .social-item {
-    width: 38px;
-    /* Un pelin más pequeñas para evitar pisotones */
-    height: 38px;
-  }
-}
-
-@media(max-width:600px) {
-
-  /* Asegurar que el contenido cabe haciendo scroll si el móvil es bajo */
-  body {
-    overflow-y: auto;
-  }
-
-  .container {
-    padding-top: 2rem;
-    padding-bottom: 5rem;
-    /* Margen para las redes en móviles */
-    justify-content: flex-start;
-    /* Subirlo arriba un poco para que quepa */
-  }
-
-  .form-zone {
-    margin-top: 2vh;
-  }
-
-  .contact-form {
-    max-width: 92vw;
-    min-height: auto;
-    padding: 2rem 1.6rem;
-    gap: 1.2rem;
-  }
-
-  .contact-form textarea {
-    min-height: 120px;
+    width: 34px;
+    height: 34px;
   }
 
   /* Reducir desenfoque grueso en móviles pequeños para ganar fotogramas (FPS) */
