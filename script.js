@@ -70,7 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const animateParticles = () => {
       ctx.clearRect(0, 0, w, h);
 
-      if (particlesArray.length < 150) {
+      // Usar menos partículas en móviles (rendimiento)
+      const maxParticles = window.innerWidth < 768 ? 60 : 150;
+
+      if (particlesArray.length < maxParticles) {
         particlesArray.push(new Particle());
       }
 
@@ -148,9 +151,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         body.classList.add('page-exit-right');
 
+        // Permitimos que la animación CSS transcurra durante 550ms
         setTimeout(() => {
           window.location.href = url;
-        }, 100);
+        }, 550);
 
       });
 
@@ -171,9 +175,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         body.classList.add('page-exit');
 
+        // Permitimos que la animación CSS transcurra durante 550ms
         setTimeout(() => {
           window.location.href = url;
-        }, 100);
+        }, 550);
 
       });
 

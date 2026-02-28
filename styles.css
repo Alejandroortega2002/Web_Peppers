@@ -39,6 +39,9 @@ body {
   justify-content: center;
   align-items: center;
   transition: opacity 1s cubic-bezier(0.7, 0, 0.3, 1), visibility 1s cubic-bezier(0.7, 0, 0.3, 1);
+  will-change: opacity, visibility;
+  transform: translateZ(0);
+  /* Forzar Aceleración GPU */
 }
 
 .skip-preloader .preloader {
@@ -324,33 +327,88 @@ body {
   border: 0;
 }
 
-/* PAGE TRANSITIONS */
+/* PAGE TRANSITIONS SPECTACULAR */
 
-body {
-  transition: opacity .5s ease, transform .5s ease;
+/* Preparativos al contenedor y overlays */
+.container {
+  transition: opacity 0.55s cubic-bezier(0.7, 0, 0.3, 1), transform 0.55s cubic-bezier(0.7, 0, 0.3, 1), filter 0.55s cubic-bezier(0.7, 0, 0.3, 1);
 }
 
-body.page-exit {
-  opacity: 0;
-  transform: translateX(-60px);
+.bg-video,
+.overlay {
+  transition: opacity 0.6s ease, filter 0.6s ease;
 }
 
-body.page-enter {
+/* OUT (Saliendo de la página actual) */
+body.page-exit .container,
+body.page-exit-right .container {
   opacity: 0;
-  transform: translateX(60px);
+  transform: translateY(-30px) scale(0.95);
+  filter: blur(12px);
 }
 
-
-/* REVERSE */
-
-body.page-exit-right {
+body.page-exit .bg-video,
+body.page-exit-right .bg-video {
   opacity: 0;
-  transform: translateX(60px);
+  filter: blur(15px);
 }
 
-body.page-enter-left {
-  opacity: 0;
-  transform: translateX(-60px);
+/* IN NORMAL (Entrando al Formulario) */
+body.page-enter .container {
+  animation: spectacularEnter 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes spectacularEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(1.05);
+    filter: blur(15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* IN REVERSE (Volviendo al index) */
+body.page-enter-left .container {
+  animation: spectacularEnterReverse 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes spectacularEnterReverse {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(1.05);
+    filter: blur(15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* Efecto de entrada envolvente para el video */
+body.page-enter .bg-video,
+body.page-enter-left .bg-video {
+  animation: videoEnter 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes videoEnter {
+  0% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1.1);
+    filter: blur(20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(0px);
+  }
 }
 
 /* CONTACT FORM - RESPONSIVE PRO */
@@ -545,64 +603,78 @@ body.page-enter-left {
 }
 
 
-/* MOBILE */
-
-@media(max-width:600px) {
-
-  .contact-form {
-
-    max-width: 92vw;
-
-    min-height: auto;
-
-    padding: 2rem 1.6rem;
-
-    gap: 1.4rem;
-  }
-
-  .contact-form textarea {
-    min-height: 140px;
-  }
-
-}
-
-/* MOBILE */
+/* MOBILE RESPONSIVE PRO */
 
 @media(max-width:900px) {
 
   .bg-video {
-    position: absolute;
-
+    position: fixed;
     top: 50%;
     left: 50%;
-
-    width: 100%;
-    height: 100%;
-
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: cover;
     transform: translate(-50%, -50%);
+    will-change: opacity, transform;
   }
 
   .container {
     min-height: 100svh;
+    /* Usar svh en móviles (Short Viewport Height) para Safari iOS */
   }
 
   .wip {
-    height: 55vh;
+    height: auto;
+    max-height: 55vh;
+    width: 90vw;
   }
 
   .contact-btn {
-    margin-top: -1.5vh;
-    padding: .75rem 2.2rem;
-    font-size: .8rem;
+    margin-top: 1vh;
+    padding: .85rem 2rem;
+    font-size: .85rem;
   }
 
   .social-carousel {
-    top: 12px;
-    right: 12px;
+    top: auto;
+    bottom: 25px;
+    right: 50%;
+    transform: translateX(50%) translateZ(0);
+    /* Centrar en móviles con aceleración GPU */
   }
 
   .social-item {
-    width: 34px;
-    height: 34px;
+    width: 44px;
+    /* Mayor tamaño para dedos */
+    height: 44px;
+  }
+}
+
+@media(max-width:600px) {
+
+  .contact-form {
+    max-width: 92vw;
+    min-height: auto;
+    padding: 2rem 1.6rem;
+    gap: 1.2rem;
+  }
+
+  .contact-form textarea {
+    min-height: 120px;
+  }
+
+  /* Reducir desenfoque grueso en móviles pequeños para ganar fotogramas (FPS) */
+  body.page-exit .container,
+  body.page-exit-right .container,
+  body.page-enter .container,
+  body.page-enter-left .container {
+    filter: blur(5px);
+  }
+
+  .preloader-logo-img {
+    width: 250px;
+    /* Reducir logo en móvil para que no se escape */
   }
 }
